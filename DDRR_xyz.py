@@ -18,7 +18,6 @@ Omega_m = omega_b / h**2 + omega_cdm / h**2 + omega_nu / h**2
 
 cosmo = FlatLambdaCDM(H0=H, Om0=Omega_m)  
 
-cosmology = 1
 nthreads = 56
 mu_max = 1.0
 nmu_bins = 20
