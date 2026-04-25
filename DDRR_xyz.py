@@ -12,11 +12,19 @@ c = 299792.458
 h = 0.6736
 omega_b = 0.02237
 omega_cdm = 0.12
-H = h * 100
-omega_nu = 6.44 * 10**(-4)
-Omega_m = omega_b / h**2 + omega_cdm / h**2 + omega_nu / h**2
+H0 = 100 * h
 
-cosmo = FlatLambdaCDM(H0=H, Om0=Omega_m)  
+Ob0 = omega_b / h**2
+Om0 = (omega_b + omega_cdm) / h**2
+
+cosmo = FlatLambdaCDM(
+    H0=H0,
+    Om0=Om0,
+    Ob0=Ob0,
+    Tcmb0=2.7255,
+    Neff=3.044,
+    m_nu=[0.06, 0.0, 0.0]
+)
 
 nthreads = 56
 mu_max = 1.0
@@ -230,18 +238,18 @@ DR_2 = Corrfunc.mocks.DDsmu_mocks(
 )
 print(f"[info] DR done: {time.time()-t0:.1f} s")
 
-np.save("wD_NGC_08_11_v2.npy", wD_1)
-np.save("wD_NGC_11_16_v2.npy", wD_2)
-np.save("wR_NGC_08_11_v2.npy", wR_1)
-np.save("wR_NGC_11_16_v2.npy", wR_2)
+np.save("wD_NGC_08_11_v3.npy", wD_1)
+np.save("wD_NGC_11_16_v3.npy", wD_2)
+np.save("wR_NGC_08_11_v3.npy", wR_1)
+np.save("wR_NGC_11_16_v3.npy", wR_2)
 
-np.save("DD_NGC_08_11_v2.npy", DD_1)
-np.save("DR_NGC_08_11_v2.npy", DR_1)
-np.save("RR_NGC_08_11_v2.npy", RR_1)
+np.save("DD_NGC_08_11_v3.npy", DD_1)
+np.save("DR_NGC_08_11_v3.npy", DR_1)
+np.save("RR_NGC_08_11_v3.npy", RR_1)
 
-np.save("DD_NGC_11_16_v2.npy", DD_2)
-np.save("DR_NGC_11_16_v2.npy", DR_2)
-np.save("RR_NGC_11_16_v2.npy", RR_2)
+np.save("DD_NGC_11_16_v3.npy", DD_2)
+np.save("DR_NGC_11_16_v3.npy", DR_2)
+np.save("RR_NGC_11_16_v3.npy", RR_2)
 
 s = np.sqrt(binfile[:-1] * binfile[1:])
 
@@ -275,8 +283,8 @@ xi_smu_2 = (DDn_2 - 2*DRn_2 + RRn_2) / RRn_2
 xi_smu_2d_2 = xi_smu_2.reshape(ns, nmu_bins)
 xi_mono_2 = xi_smu_2d_2.mean(axis=1)
 
-np.save("xi_smu_2d_NGC_08_11_v2.npy", xi_smu_2d_1)
-np.save("xi_smu_2d_NGC_11_16_v2.npy", xi_smu_2d_2)
+np.save("xi_smu_2d_NGC_08_11_v3.npy", xi_smu_2d_1)
+np.save("xi_smu_2d_NGC_11_16_v3.npy", xi_smu_2d_2)
 # np.save("s_bins_NGC.npy", s)
 
 rows = []
@@ -295,7 +303,7 @@ df = pd.DataFrame(
     columns=["s_hMpc", "mu", "xi"]
 )
 
-df.to_csv("xi_smu_NGC_08_11_v2.csv", index=False)
+df.to_csv("xi_smu_NGC_08_11_v3.csv", index=False)
 print("[info] output -> xi_smu_NGC_08_11.csv")
 
 df = pd.DataFrame({
@@ -303,7 +311,7 @@ df = pd.DataFrame({
     "xi_mono": xi_mono_1,
 })
 
-df.to_csv("xi_mono_NGC_08_11_v2.csv", index=False)
+df.to_csv("xi_mono_NGC_08_11_v3.csv", index=False)
 print("[info] output -> xi_mono_NGC_08_11.csv")
 
 rows = []
@@ -322,7 +330,7 @@ df = pd.DataFrame(
     columns=["s_hMpc", "mu", "xi"]
 )
 
-df.to_csv("xi_smu_NGC_11_16_v2.csv", index=False)
+df.to_csv("xi_smu_NGC_11_16_v3.csv", index=False)
 print("[info] output -> xi_smu_NGC_11_16.csv")
 
 df = pd.DataFrame({
@@ -330,7 +338,7 @@ df = pd.DataFrame({
     "xi_mono": xi_mono_2,
 })
 
-df.to_csv("xi_mono_NGC_11_16_v2.csv", index=False)
+df.to_csv("xi_mono_NGC_11_16_v3.csv", index=False)
 print("[info] output -> xi_mono_NGC_11_16.csv")
 
 #========================================================================
@@ -540,18 +548,18 @@ DR_2 = Corrfunc.mocks.DDsmu_mocks(
 )
 print(f"[info] DR done: {time.time()-t0:.1f} s")
 
-np.save("wD_SGC_08_11_v2.npy", wD_1)
-np.save("wD_SGC_11_16_v2.npy", wD_2)
-np.save("wR_SGC_08_11_v2.npy", wR_1)
-np.save("wR_SGC_11_16_v2.npy", wR_2)
+np.save("wD_SGC_08_11_v3.npy", wD_1)
+np.save("wD_SGC_11_16_v3.npy", wD_2)
+np.save("wR_SGC_08_11_v3.npy", wR_1)
+np.save("wR_SGC_11_16_v3.npy", wR_2)
 
-np.save("DD_SGC_08_11_v2.npy", DD_1)
-np.save("DR_SGC_08_11_v2.npy", DR_1)
-np.save("RR_SGC_08_11_v2.npy", RR_1)
+np.save("DD_SGC_08_11_v3.npy", DD_1)
+np.save("DR_SGC_08_11_v3.npy", DR_1)
+np.save("RR_SGC_08_11_v3.npy", RR_1)
 
-np.save("DD_SGC_11_16_v2.npy", DD_2)
-np.save("DR_SGC_11_16_v2.npy", DR_2)
-np.save("RR_SGC_11_16_v2.npy", RR_2)
+np.save("DD_SGC_11_16_v3.npy", DD_2)
+np.save("DR_SGC_11_16_v3.npy", DR_2)
+np.save("RR_SGC_11_16_v3.npy", RR_2)
 
 s = np.sqrt(binfile[:-1] * binfile[1:])
 
@@ -585,8 +593,8 @@ xi_smu_2 = (DDn_2 - 2*DRn_2 + RRn_2) / RRn_2
 xi_smu_2d_2 = xi_smu_2.reshape(ns, nmu_bins)
 xi_mono_2 = xi_smu_2d_2.mean(axis=1)
 
-np.save("xi_smu_2d_SGC_08_11_v2.npy", xi_smu_2d_1)
-np.save("xi_smu_2d_SGC_11_16_v2.npy", xi_smu_2d_2)
+np.save("xi_smu_2d_SGC_08_11_v3.npy", xi_smu_2d_1)
+np.save("xi_smu_2d_SGC_11_16_v3.npy", xi_smu_2d_2)
 # np.save("s_bins_SGC.npy", s)
 
 rows = []
@@ -605,7 +613,7 @@ df = pd.DataFrame(
     columns=["s_hMpc", "mu", "xi"]
 )
 
-df.to_csv("xi_smu_SGC_08_11_v2.csv", index=False)
+df.to_csv("xi_smu_SGC_08_11_v3.csv", index=False)
 print("[info] output -> xi_smu_SGC_08_11.csv")
 
 df = pd.DataFrame({
@@ -613,7 +621,7 @@ df = pd.DataFrame({
     "xi_mono": xi_mono_1,
 })
 
-df.to_csv("xi_mono_SGC_08_11_v2.csv", index=False)
+df.to_csv("xi_mono_SGC_08_11_v3.csv", index=False)
 print("[info] output -> xi_mono_SGC_08_11.csv")
 
 rows = []
@@ -632,7 +640,7 @@ df = pd.DataFrame(
     columns=["s_hMpc", "mu", "xi"]
 )
 
-df.to_csv("xi_smu_SGC_11_16_v2.csv", index=False)
+df.to_csv("xi_smu_SGC_11_16_v3.csv", index=False)
 print("[info] output -> xi_smu_SGC_11_16.csv")
 
 df = pd.DataFrame({
@@ -640,5 +648,5 @@ df = pd.DataFrame({
     "xi_mono": xi_mono_2,
 })
 
-df.to_csv("xi_mono_SGC_11_16_v2.csv", index=False)
+df.to_csv("xi_mono_SGC_11_16_v3.csv", index=False)
 print("[info] output -> xi_mono_SGC_11_16.csv")

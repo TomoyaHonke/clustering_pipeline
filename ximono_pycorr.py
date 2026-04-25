@@ -13,11 +13,19 @@ c = 299792.458
 h = 0.6736
 omega_b = 0.02237
 omega_cdm = 0.12
-H = h * 100
-omega_nu = 6.44 * 10**(-4)
-Omega_m = omega_b / h**2 + omega_cdm / h**2 + omega_nu / h**2
+H0 = 100 * h
 
-cosmo = FlatLambdaCDM(H0=H, Om0=Omega_m)  
+Ob0 = omega_b / h**2
+Om0 = (omega_b + omega_cdm) / h**2
+
+cosmo = FlatLambdaCDM(
+    H0=H0,
+    Om0=Om0,
+    Ob0=Ob0,
+    Tcmb0=2.7255,
+    Neff=3.044,
+    m_nu=[0.06, 0.0, 0.0]
+)
 
 nthreads = 56
 mu_max = 1.0
@@ -167,7 +175,7 @@ xi_mono_1 = xi0_1[0]
 err_xi0_1 = np.sqrt(np.diag(cov_xi0_1))
 
 np.savez(
-    "xi0_NGC_z08_11_jk_v2.npz",
+    "/data/honke/corr_clustering/xi/xi0_NGC_z08_11_jk_v3.npz",
     s=s,
     xi=xi_mono_1,
     cov=cov_xi0_1,
@@ -215,7 +223,7 @@ xi_mono_2 = xi0_2[0]
 err_xi0_2 = np.sqrt(np.diag(cov_xi0_2))
 
 np.savez(
-    "xi0_NGC_z11_16_jk_v2.npz",
+    "/data/honke/corr_clustering/xi/xi0_NGC_z11_16_jk_v3.npz",
     s=s,
     xi=xi_mono_2,
     cov=cov_xi0_2,
@@ -367,7 +375,7 @@ xi_mono_1 = xi0_1[0]
 err_xi0_1 = np.sqrt(np.diag(cov_xi0_1))
 
 np.savez(
-    "xi0_SGC_z08_11_jk_v2.npz",
+    "/data/honke/corr_clustering/xi/xi0_SGC_z08_11_jk_v3.npz",
     s=s,
     xi=xi_mono_1,
     cov=cov_xi0_1,
@@ -415,7 +423,7 @@ xi_mono_2 = xi0_2[0]
 err_xi0_2 = np.sqrt(np.diag(cov_xi0_2))
 
 np.savez(
-    "xi0_SGC_z11_16_jk_v2.npz",
+    "/data/honke/corr_clustering/xi/xi0_SGC_z11_16_jk_v3.npz",
     s=s,
     xi=xi_mono_2,
     cov=cov_xi0_2,
